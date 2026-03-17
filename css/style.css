@@ -144,8 +144,10 @@ h1 {
     margin-right: auto;
     left: 0;
     right: 0;
-    top: 150px;
+    top: 210px;
     width: 500px;
+    height: 80px;
+    line-height: 80px;
     font-size: 50px;
     background-color: #000;
     color: #fff;

@@ -18,6 +18,9 @@ let player2 = 0
 for (let i = 0; i < boxes.length; i++) {
     // quando alguem clica na caixa
     boxes[i].addEventListener('click', function () {
+        // Ignora o clique caso seja a vez da IA (aguardando o tempo de espera)
+        if (secondPlayer == 'ai-player' && player1 != player2) return;
+
         let el = cleckEl(player1, player2);
 
         // verifica se já tem x ou o
@@ -31,16 +34,26 @@ for (let i = 0; i < boxes.length; i++) {
 
                 // jogada ia
                 if (secondPlayer == 'ai-player') {
-                    // funçao executar a jogada
-                    computerPlay()
-                    player2++
+                    // Verifica se o jogador venceu ou deu velha antes da IA jogar
+                    checkWinCondition();
+
+                    // Só roda a IA se o jogo não tiver acabado (player1 > 0)
+                    if (player1 > 0) {
+                        setTimeout(() => {
+                            computerPlay();
+                            player2++;
+                            checkWinCondition();
+                        }, 800); // IA espera 800ms antes de jogar
+                    }
                 }
             } else {
                 player2++
             }
 
-            //checa quem venceu
-            checkWinCondition();
+            // checa quem venceu no modo para 2 jogadores
+            if (secondPlayer != 'ai-player') {
+                checkWinCondition();
+            }
         }
     });
 }
